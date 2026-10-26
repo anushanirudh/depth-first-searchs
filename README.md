@@ -1,6 +1,12 @@
 <h1>ExpNo 2 : Implement Depth First Search Traversal of a Graph</h1> 
-<h3>Name: </h3>
-<h3>Register Number:     </h3>
+
+```
+Name: R Anirudh 
+Register Number:  212223230016  
+Date : 15/10/26 
+
+```
+
 <H3>Aim:</H3>
 <p> To Implement Depth First Search Traversal of a Graph using Python 3.</p>
 <h3>Theory:</h3>
@@ -55,40 +61,61 @@ Now, the Stack becomes empty, which means we have visited all the nodes, and our
 </ol></B>
 
 <hr>
-<h3>Sample Input</h3>
-<hr>
-8 9 <BR>
-A B <BR>
-A C <BR>
-B E <BR>
-C D <BR>
-B D <BR>
-C G <BR>
-D F <BR>
-G F <BR>
-F H <BR>
-<hr>
-<h3>Sample Output</h3>
-<hr>
-['A', 'B', 'E', 'D', 'C', 'G', 'F', 'H']
 
-<hr>
+## Program:
+```python
+from collections import defaultdict
+import networkx as nx
+import matplotlib.pyplot as plt
 
-<hr>
-<h3>Sample Input</h3>
-<hr>
-5 5 <BR>
-0 1 <BR>
-0 2 <BR>
-0 3 <BR>
-2 3 <BR>
-2 4 <BR>
-<hr>
-<h3>Sample Output</h3>
-<hr>
-['0', '1', '2', '3', '4']
+graph = defaultdict(list)
+G = nx.Graph()
 
-<hr>
+# Provide a clear prompt for the number of nodes and edges
+try:
+    nodes, edges = map(int, input("Enter number of nodes and edges (e.g., '4 4'): ").split())
+except ValueError:
+    print("Error: Please enter two integers separated by a space.")
+    raise
+
+print(f"Please enter {edges} edges (each as two space-separated node names, e.g., 'A B'):")
+for i in range(edges):
+    u, v = map(str, input(f"Edge {i+1}: ").split())
+    graph[u].append(v)
+    graph[v].append(u)
+    G.add_edge(u, v)
+
+nx.draw(G, with_labels=True, node_color="lightblue", edge_color="red", width=2, node_size=2000)
+plt.show()
+print("Graph structure:", dict(graph))
+
+# Depth First Search
+def dfs(graph, start, visited, path):
+    path.append(start)
+    visited[start] = True
+
+    for neighbour in graph[start]:
+        if not visited[neighbour]:
+            dfs(graph, neighbour, visited, path)
+
+    return path
+
+# input start node
+start = input("Enter start node for DFS: ")
+
+path = []
+visited = defaultdict(bool)
+traversepath = dfs(graph, start, visited, path)
+print("Depth First Search:")
+print(traversepath)
+```
+
+
+## Output:
+
+<img width="1203" height="722" alt="image" src="https://github.com/user-attachments/assets/cb8a2213-5cd5-4c01-9c5c-346fed88327f" />
+
+
 <h3>Result:</h3>
 <hr>
 <p>Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done successfully.</p>
